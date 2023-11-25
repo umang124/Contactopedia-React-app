@@ -38,8 +38,17 @@ class ContactIndex extends React.Component {
   }
 
   handleAddContact = (newContact) => {
-    alert("Hello")
-  }
+    const newFinalContact = {
+      ...newContact,
+      id: this.state.contactList[this.state.contactList.length - 1].id + 1,
+      isFavourite: false,
+    };
+    this.setState((prevState) => {
+      return {
+        contactList: prevState.contactList.concat(newFinalContact),
+      };
+    });
+  };
 
   render() {
     return (
