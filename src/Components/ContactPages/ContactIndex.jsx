@@ -38,6 +38,28 @@ class ContactIndex extends React.Component {
   }
 
   handleAddContact = (newContact) => {
+    if (newContact.name === "") {
+      return { status: "failure", msg: "Please enter a valid Name" };
+    } else if (newContact.phone === "") {
+      return { status: "failure", msg: "Please enter a valid Phone" };
+    } else if (newContact.email === "") {
+      return { status: "failure", msg: "Please enter a valid email" };
+    }
+
+    const duplicateRecord = this.state.contactList.filter((x) => {
+      if (
+        x.name === newContact.name ||
+        x.email === newContact.email ||
+        x.phone === newContact.phone
+      ) {
+        return true;
+      }
+      return false;
+    });
+
+    if (duplicateRecord.length > 0) {
+      return { status: "failure", msg: "Duplicate Record" };
+    }
     const newFinalContact = {
       ...newContact,
       id: this.state.contactList[this.state.contactList.length - 1].id + 1,
@@ -48,6 +70,8 @@ class ContactIndex extends React.Component {
         contactList: prevState.contactList.concat(newFinalContact),
       };
     });
+    // this.setState({contactList: this.state.contactList.concat(newFinalContact)});
+    return { status: "success", msg: "Contact was added successfully" };
   };
 
   render() {
