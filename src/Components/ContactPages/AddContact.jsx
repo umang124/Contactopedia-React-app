@@ -30,7 +30,10 @@ class AddContact extends React.Component {
   render() {
     return (
       <div className="border col-12 text-white p-2">
-        <form onSubmit={this.handleAddContactFormSubmit} className="contact-form">
+        <form
+          onSubmit={this.handleAddContactFormSubmit}
+          className="contact-form"
+        >
           <div className="row p-2">
             <div className="col-12 text-white-50">Add a new Contact</div>
             <div className="col-12 col-md-4 p-1">
@@ -54,6 +57,21 @@ class AddContact extends React.Component {
                 name="contactPhone"
               />
             </div>
+            {this.state.successMessage === undefined ? (
+              <div></div>
+            ) : (
+              <div className="col-12 text-center text-success">
+                {this.state.successMessage}
+              </div>
+            )}
+
+            {this.state.errorMessage === undefined ? (
+              <div></div>
+            ) : (
+              <div className="col-12 text-center text-danger">
+                {this.state.errorMessage}
+              </div>
+            )}
             <div className="col-12 col-md-6 offset-md-3 p-1">
               <button className="btn btn-primary btn-sm form-control">
                 Create
