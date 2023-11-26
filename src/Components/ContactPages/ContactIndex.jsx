@@ -76,6 +76,36 @@ class ContactIndex extends React.Component {
     return { status: "success", msg: "Contact was added successfully" };
   };
 
+  handleUpdateContact = (updatedContact) => {
+    if (updatedContact.name === "") {
+      return { status: "failure", msg: "Please enter a valid Name" };
+    } else if (updatedContact.phone === "") {
+      return { status: "failure", msg: "Please enter a valid Phone" };
+    } else if (updatedContact.email === "") {
+      return { status: "failure", msg: "Please enter a valid email" };
+    }
+
+    this.setState((prevState) => {
+      return {
+        contactList: prevState.contactList.map((obj) => {
+          if (obj.id == updatedContact.id) {
+            return {
+              ...obj,
+              name: updatedContact.name,
+              email: updatedContact.email,
+              phone: updatedContact.phone,
+            };
+          }
+          return obj;
+        }),
+        isUpdating: false,
+        selectedContact: undefined,
+      };
+    });
+
+    return { status: "success", msg: "Contact updated successfully" };
+  };
+
   handleToogleFavourite = (contact) => {
     this.setState((prevState) => {
       return {
@@ -163,6 +193,7 @@ class ContactIndex extends React.Component {
                   isUpdating={this.state.isUpdating}
                   selectedContact={this.state.selectedContact}
                   cancelUpdateContact={this.handleCancelUpdateContact}
+                  updateContact={this.handleUpdateContact}
                 />
               </div>
             </div>
