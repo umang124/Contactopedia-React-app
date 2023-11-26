@@ -1,4 +1,7 @@
 const Contact = (props) => {
+  // const toggleFavourites = (value) => {
+  //   alert(value);
+  // };
   return (
     <div
       className="row p-md-2 mb-2"
@@ -22,6 +25,7 @@ const Contact = (props) => {
       </div>
       <div className="col-2 col-md-2 pt-md-3">
         <button
+          onClick={() => props.favouriteClick(props.contact)}
           className={`btn btn-sm m-1 ${
             props.contact.isFavourite ? "btn-warning" : "btn-outline-warning"
           }`}
